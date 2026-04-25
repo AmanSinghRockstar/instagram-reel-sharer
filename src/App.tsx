@@ -4,6 +4,7 @@ import './App.css'
 function App() {
   const [instagramUrl, setInstagramUrl] = useState('')
   const [embedCode, setEmbedCode] = useState('')
+  const [embedKey, setEmbedKey] = useState(0)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -50,6 +51,7 @@ function App() {
 
     setInstagramUrl(urlToEmbed)
     setEmbedCode(html)
+    setEmbedKey((prev) => prev + 1)
     setLoading(false)
     updateAddressBar(urlToEmbed, replaceState)
   }
@@ -84,8 +86,22 @@ function App() {
       }
     }
 
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        const searchParams = new URLSearchParams(window.location.search)
+        const nextUrl = searchParams.get('url')
+        if (nextUrl) {
+          generateEmbedCode(nextUrl, true)
+        }
+      }
+    }
+
     window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
+    window.addEventListener('pageshow', handlePageShow)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('pageshow', handlePageShow)
+    }
   }, [])
 
   useEffect(() => {
@@ -129,6 +145,7 @@ function App() {
           <section className="embed-section">
             <h2>Preview</h2>
             <div 
+              key={embedKey}
               className="embed-container"
               dangerouslySetInnerHTML={{ __html: embedCode }}
             />
