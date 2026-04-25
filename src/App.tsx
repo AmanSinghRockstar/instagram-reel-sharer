@@ -136,7 +136,11 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <h1>Instagram Reel Sharer</h1>
+        <h1>
+          <a href="/" className="title-link" aria-label="Go to homepage">
+            Instagram Reel Sharer
+          </a>
+        </h1>
         <p>Share Instagram reels with anyone, even without an account</p>
       </header>
 
