@@ -137,7 +137,7 @@ function App() {
     <div className="container">
       <header className="header">
         <h1>
-          <a href="/" className="title-link" aria-label="Go to homepage">
+          <a href={import.meta.env.BASE_URL} className="title-link" aria-label="Go to homepage">
             Instagram Reel Sharer
           </a>
         </h1>
