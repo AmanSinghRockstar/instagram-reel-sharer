@@ -54,6 +54,16 @@ function App() {
     updateAddressBar(urlToEmbed, replaceState)
   }
 
+  const copyInstagramLink = () => {
+    if (!instagramUrl.trim()) {
+      setError('Please enter an Instagram URL to copy.')
+      return
+    }
+
+    navigator.clipboard.writeText(instagramUrl)
+    alert('Instagram link copied to clipboard!')
+  }
+
   useEffect(() => {
     if (typeof window === 'undefined') return
 
@@ -115,34 +125,6 @@ function App() {
       </header>
 
       <main className="content">
-        <section className="input-section">
-          <div className="input-group">
-            <label htmlFor="instagram-url">Instagram Link</label>
-            <input
-              id="instagram-url"
-              type="text"
-              placeholder="Paste Instagram reel, post, or TV link..."
-              value={instagramUrl}
-              onChange={(e) => setInstagramUrl(e.target.value)}
-              onKeyPress={handleKeyPress}
-              disabled={loading}
-            />
-            <button 
-              onClick={() => generateEmbedCode()}
-              disabled={loading}
-              className="generate-btn"
-            >
-              {loading ? 'Loading...' : 'Embed Reel'}
-            </button>
-          </div>
-
-          {error && (
-            <div className="error-message">
-              {error}
-            </div>
-          )}
-        </section>
-
         {embedCode && (
           <section className="embed-section">
             <h2>Preview</h2>
@@ -190,6 +172,43 @@ function App() {
             </div>
           </section>
         )}
+
+        <section className="input-section">
+          <div className="input-group">
+            <label htmlFor="instagram-url">Instagram Link</label>
+            <input
+              id="instagram-url"
+              type="text"
+              placeholder="Paste Instagram reel, post, or TV link..."
+              value={instagramUrl}
+              onChange={(e) => setInstagramUrl(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={loading}
+            />
+            <div className="button-row">
+              <button 
+                onClick={() => generateEmbedCode()}
+                disabled={loading}
+                className="generate-btn"
+              >
+                {loading ? 'Loading...' : 'Embed Reel'}
+              </button>
+              <button
+                onClick={copyInstagramLink}
+                type="button"
+                className="copy-btn"
+              >
+                Copy Instagram Link
+              </button>
+            </div>
+          </div>
+
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+        </section>
 
         <section className="info-section">
           <h2>How it works</h2>
