@@ -235,7 +235,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Instagram Reel Sharer | Deployed on GitHub Pages</p>
+        <p>Instagram Reel Sharer | Deployed on GitHub Pages | Made for Sam </p>
       </footer>
     </div>
   )
