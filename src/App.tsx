@@ -195,7 +195,6 @@ function App() {
               </button>
               <button
                 onClick={copyInstagramLink}
-                type="button"
                 className="copy-btn"
               >
                 Copy Instagram Link
